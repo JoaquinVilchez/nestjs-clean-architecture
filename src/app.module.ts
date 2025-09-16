@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { EnvConfigModule } from './shared/infrastructure/env-config/env-config.module'
+import { UsersModule } from './users/infrastructure/users.module'
 
 /**
  * Módulo principal de la aplicación (AppModule)
@@ -23,6 +24,7 @@ import { EnvConfigModule } from './shared/infrastructure/env-config/env-config.m
     // .forRoot() inicializa el módulo con la configuración por defecto
     // Esto carga las variables de entorno y hace disponible EnvConfigService
     EnvConfigModule.forRoot(),
+    UsersModule,
   ],
 
   // Controladores que manejan las rutas HTTP
