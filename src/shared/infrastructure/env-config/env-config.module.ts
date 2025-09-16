@@ -15,7 +15,6 @@ import { join } from 'node:path'
 @Module({
   // Proveedores que estarán disponibles en este módulo
   providers: [EnvConfigService],
-  // Servicios que se exportan para que otros módulos puedan usarlos
   exports: [EnvConfigService],
 })
 export class EnvConfigModule {
