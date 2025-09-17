@@ -1,3 +1,5 @@
+import { Entity } from '@/shared/domain/entities/entity'
+
 /**
  * Propiedades que definen la estructura de un usuario en el dominio
  * Representa los datos básicos que debe contener una entidad Usuario
@@ -26,8 +28,12 @@ export type UserProps = {
  * - Mantener la integridad de los datos del usuario
  * - Ser utilizada por casos de uso en la capa de aplicación
  */
-export class UserEntity {
-  constructor(public readonly props: UserProps) {
+export class UserEntity extends Entity<UserProps> {
+  constructor(
+    public readonly props: UserProps,
+    id?: string,
+  ) {
+    super(props, id)
     // Si no se proporciona fecha de creación, se asigna la fecha actual
     this.props.createdAt = this.props.createdAt ?? new Date()
   }
