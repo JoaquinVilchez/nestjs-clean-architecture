@@ -17,26 +17,48 @@ describe('UserEntity unit test', () => {
     expect(sut.props.createdAt).toBeInstanceOf(Date)
   })
 
-  it('name getter', () => {
+  it('Getter of name field', () => {
     expect(sut.props.name).toBeDefined()
     expect(sut.props.name).toEqual(props.name)
     expect(typeof sut.props.name).toBe('string')
   })
 
-  it('email getter', () => {
+  it('Setter of name field', () => {
+    sut['name'] = 'new name'
+    expect(sut.props.name).toEqual('new name')
+    expect(typeof sut.props.name).toBe('string')
+  })
+
+  it('Getter of email field', () => {
     expect(sut.props.email).toBeDefined()
     expect(sut.props.email).toEqual(props.email)
     expect(typeof sut.props.email).toBe('string')
   })
 
-  it('password getter', () => {
+  it('Getter of password field', () => {
     expect(sut.props.password).toBeDefined()
     expect(sut.props.password).toEqual(props.password)
     expect(typeof sut.props.password).toBe('string')
   })
 
-  it('createdAt getter', () => {
+  it('Setter of password field', () => {
+    sut['password'] = 'new password'
+    expect(sut.props.password).toEqual('new password')
+    expect(typeof sut.props.password).toBe('string')
+  })
+
+  it('Getter of createdAt field', () => {
     expect(sut.props.createdAt).toBeDefined()
     expect(sut.props.createdAt).toBeInstanceOf(Date)
+  })
+
+  it('Should update a user', () => {
+    sut.update('new name')
+    expect(sut.props.name).toEqual('new name')
+  })
+
+  it('Should update a user password', () => {
+    sut.updatePassword('new password')
+    expect(sut.props.password).toEqual('new password')
   })
 })
