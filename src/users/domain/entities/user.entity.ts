@@ -1,5 +1,6 @@
 import { Entity } from '@/shared/domain/entities/entity'
 import { UserValidatorFactory } from '../validators/user.validator'
+import { EntityValidationError } from '@/shared/domain/errors/validation-error'
 
 /**
  * Propiedades que definen la estructura de un usuario en el dominio
@@ -141,8 +142,10 @@ export class UserEntity extends Entity<UserProps> {
   static validate(props: UserProps) {
     // 1. Crear un validador usando la factory del dominio
     const validator = UserValidatorFactory.create()
+    const isValid = validator.validate(props)
 
-    // 2. Ejecutar la validación (lanza excepción si hay errores)
-    validator.validate(props)
+    if (!isValid) {
+      throw new EntityValidationError(validator.errors)
+    }
   }
 }

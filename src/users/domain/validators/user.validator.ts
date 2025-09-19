@@ -7,7 +7,7 @@ import {
   MaxLength,
 } from 'class-validator'
 import { UserProps } from '../entities/user.entity'
-import { ClassValidatorFields } from '../entities/validators/class-validator-fields'
+import { ClassValidatorFields } from '../../../shared/domain/validators/class-validator-fields'
 
 /**
  * Clase que define las reglas de validación para un usuario

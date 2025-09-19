@@ -9,6 +9,7 @@ describe('UserEntity unit test', () => {
 
   // Antes de cada test, creamos datos de prueba y una instancia de UserEntity
   beforeEach(() => {
+    jest.spyOn(UserEntity, 'validate').mockImplementation(() => {})
     props = UserDataBuilder({}) // Genera datos de prueba con valores por defecto
     sut = new UserEntity(props) // Crea una nueva instancia de UserEntity
   })
@@ -16,6 +17,7 @@ describe('UserEntity unit test', () => {
   // Test 1: Verifica que el constructor inicialice correctamente todas las propiedades
   it('Constructor method', () => {
     // 1. Verificar que las propiedades se asignaron correctamente
+    expect(jest.spyOn(UserEntity, 'validate')).toHaveBeenCalled()
     expect(sut.props.name).toEqual(props.name)
     expect(sut.props.email).toEqual(props.email)
     expect(sut.props.password).toEqual(props.password)
@@ -97,7 +99,7 @@ describe('UserEntity unit test', () => {
   it('Should update a user', () => {
     // 1. Llamar al método update con un nuevo nombre
     sut.update('new name')
-
+    expect(jest.spyOn(UserEntity, 'validate')).toHaveBeenCalled()
     // 2. Verificar que el nombre se haya actualizado
     expect(sut.props.name).toEqual('new name')
   })
