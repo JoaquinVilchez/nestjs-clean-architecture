@@ -59,5 +59,59 @@ describe('UserEntity integration test', () => {
       }
       expect(() => new UserEntity(props)).toThrow(EntityValidationError)
     })
+
+    it('Should throw an error when creating a user with invalid password', () => {
+      let props: UserProps = {
+        ...UserDataBuilder({}),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        password: null as any,
+      }
+      expect(() => new UserEntity(props)).toThrow(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        password: '',
+      }
+      expect(() => new UserEntity(props)).toThrow(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        password: 10 as any,
+      }
+      expect(() => new UserEntity(props)).toThrow(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        password: 'a'.repeat(101),
+      }
+      expect(() => new UserEntity(props)).toThrow(EntityValidationError)
+    })
+
+    it('Should throw an error when creating a user with invalid createdAt', () => {
+      let props: UserProps = {
+        ...UserDataBuilder({}),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        createdAt: '2023' as any,
+      }
+      expect(() => new UserEntity(props)).toThrow(EntityValidationError)
+
+      props = {
+        ...UserDataBuilder({}),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        createdAt: 123 as any,
+      }
+      expect(() => new UserEntity(props)).toThrow(EntityValidationError)
+    })
+
+    it('Should a valid user', () => {
+      expect.assertions(0)
+
+      const props: UserProps = {
+        ...UserDataBuilder({}),
+      }
+
+      new UserEntity(props)
+    })
   })
 })
