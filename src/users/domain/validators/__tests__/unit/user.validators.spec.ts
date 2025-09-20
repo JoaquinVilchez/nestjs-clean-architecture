@@ -1,3 +1,14 @@
+/**
+ * ARCHIVO: user.validators.spec.ts
+ *
+ * FUNCIONALIDAD: Tests unitarios para UserValidator que verifican el comportamiento
+ * correcto de todas las validaciones de campos (name, email, password, createdAt)
+ * incluyendo casos válidos e inválidos.
+ *
+ * BENEFICIO: Garantiza que las reglas de validación del dominio funcionen correctamente
+ * y que se generen los mensajes de error apropiados para cada caso de validación.
+ */
+
 import { UserDataBuilder } from '@/users/domain/testing/helpers/use-data-builder'
 import {
   UserRules,
@@ -24,6 +35,7 @@ describe('UserValidator unit test', () => {
 
   describe('Name field', () => {
     it('Invalidation cases for name field', () => {
+      // Prueba con datos nulos
       let isValid = sut.validate(null as any)
       expect(isValid).toBeFalsy()
       expect(sut.errors['name']).toStrictEqual([
@@ -51,9 +63,9 @@ describe('UserValidator unit test', () => {
         'name must be shorter than or equal to 255 characters',
       ])
 
+      // Prueba con nombre demasiado largo (más de 255 caracteres)
       isValid = sut.validate({
         ...UserDataBuilder({}),
-
         name: 'a'.repeat(256),
       })
       expect(isValid).toBeFalsy()
@@ -65,6 +77,7 @@ describe('UserValidator unit test', () => {
 
   describe('Email field', () => {
     it('Invalidation cases for email field', () => {
+      // Prueba con datos nulos
       let isValid = sut.validate(null as any)
       expect(isValid).toBeFalsy()
       expect(sut.errors['email']).toStrictEqual([
@@ -97,9 +110,9 @@ describe('UserValidator unit test', () => {
         'email must be shorter than or equal to 255 characters',
       ])
 
+      // Prueba con email demasiado largo (más de 255 caracteres)
       isValid = sut.validate({
         ...UserDataBuilder({}),
-
         email: 'a'.repeat(256),
       })
       expect(isValid).toBeFalsy()
@@ -112,6 +125,7 @@ describe('UserValidator unit test', () => {
 
   describe('Password field', () => {
     it('Invalidation cases for password field', () => {
+      // Prueba con datos nulos
       let isValid = sut.validate(null as any)
       expect(isValid).toBeFalsy()
       expect(sut.errors['password']).toStrictEqual([
@@ -141,9 +155,9 @@ describe('UserValidator unit test', () => {
         'password must be shorter than or equal to 100 characters',
       ])
 
+      // Prueba con contraseña demasiado larga (más de 100 caracteres)
       isValid = sut.validate({
         ...UserDataBuilder({}),
-
         password: 'a'.repeat(256),
       })
       expect(isValid).toBeFalsy()
@@ -155,6 +169,7 @@ describe('UserValidator unit test', () => {
 
   describe('CreatedAt field', () => {
     it('Invalidation cases for createdAt field', () => {
+      // Prueba con createdAt de tipo incorrecto
       let isValid = sut.validate({
         ...props,
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
