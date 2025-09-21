@@ -36,6 +36,7 @@ describe('UserValidator unit test', () => {
   describe('Name field', () => {
     it('Invalidation cases for name field', () => {
       // Prueba con datos nulos
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       let isValid = sut.validate(null as any)
       expect(isValid).toBeFalsy()
       expect(sut.errors['name']).toStrictEqual([
@@ -78,6 +79,7 @@ describe('UserValidator unit test', () => {
   describe('Email field', () => {
     it('Invalidation cases for email field', () => {
       // Prueba con datos nulos
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       let isValid = sut.validate(null as any)
       expect(isValid).toBeFalsy()
       expect(sut.errors['email']).toStrictEqual([
@@ -126,6 +128,7 @@ describe('UserValidator unit test', () => {
   describe('Password field', () => {
     it('Invalidation cases for password field', () => {
       // Prueba con datos nulos
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       let isValid = sut.validate(null as any)
       expect(isValid).toBeFalsy()
       expect(sut.errors['password']).toStrictEqual([

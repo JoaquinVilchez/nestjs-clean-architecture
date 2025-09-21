@@ -1,3 +1,13 @@
+/**
+ * ARCHIVO: class-validator-fields.ts
+ *
+ * FUNCIONALIDAD: Clase abstracta que implementa la validación usando class-validator.
+ * Proporciona una interfaz consistente para validar datos y manejar errores de validación.
+ *
+ * BENEFICIO: Centraliza la lógica de validación con class-validator, proporciona
+ * una interfaz consistente y facilita el manejo de errores de validación.
+ */
+
 import { validateSync, ValidationError } from 'class-validator'
 import {
   FieldsErrors,
@@ -15,6 +25,7 @@ export abstract class ClassValidatorFields<PropsValidated>
 
     if (errors.length) {
       this.errors = {}
+      // Procesa cada error y agrupa por campo
       for (const error of errors) {
         const field = error.property
 
