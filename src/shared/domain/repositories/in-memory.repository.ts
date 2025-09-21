@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: in-memory.repository.ts
+ * UBICACIÓN: /shared/domain/repositories/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? La implementación base en memoria está en /shared/domain porque
+ * puede ser utilizada por CUALQUIER módulo del dominio para testing y desarrollo.
+ * Al estar en /shared, evita duplicar esta implementación en cada módulo y proporciona
+ * una base común para todos los repositorios en memoria de la aplicación.
  *
  * FUNCIONALIDAD: Implementación base de repositorio en memoria que proporciona
  * funcionalidad CRUD básica para testing y desarrollo. Es una clase abstracta
@@ -18,16 +24,17 @@ export abstract class InMemoryRepository<E extends Entity>
 {
   items: E[] = []
 
-  async insert(entity: E): Promise<void> {
+  insert(entity: E): Promise<void> {
     this.items.push(entity)
+    return Promise.resolve()
   }
 
   async findById(id: string): Promise<E> {
     return this._get(id)
   }
 
-  async findAll(): Promise<E[]> {
-    return this.items
+  findAll(): Promise<E[]> {
+    return Promise.resolve(this.items)
   }
 
   async update(entity: E): Promise<void> {
@@ -44,13 +51,13 @@ export abstract class InMemoryRepository<E extends Entity>
     this.items.splice(index, 1)
   }
 
-  protected async _get(id: string): Promise<E> {
+  protected _get(id: string): Promise<E> {
     // Convierte el ID a string para comparación consistente
     const _id = `${id}`
     const entity = this.items.find(item => item.id === _id)
     if (!entity) {
       throw new NotFoundError(`Entity not found`)
     }
-    return entity
+    return Promise.resolve(entity)
   }
 }

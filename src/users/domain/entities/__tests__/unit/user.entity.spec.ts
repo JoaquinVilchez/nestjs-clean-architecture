@@ -1,5 +1,10 @@
 /**
  * ARCHIVO: user.entity.spec.ts
+ * UBICACIÓN: /users/domain/entities/__tests__/unit/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests unitarios están en /users/domain porque prueban la lógica
+ * de negocio específica del módulo de usuarios. Al estar en /domain, estos tests validan
+ * las reglas de negocio puras sin dependencias externas, siguiendo Clean Architecture.
  *
  * FUNCIONALIDAD: Tests unitarios para la entidad UserEntity que verifican el comportamiento
  * correcto de todos los métodos, getters, setters y validaciones de la entidad.

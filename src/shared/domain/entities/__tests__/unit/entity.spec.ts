@@ -1,5 +1,10 @@
 /**
  * ARCHIVO: entity.spec.ts
+ * UBICACIÓN: /shared/domain/entities/__tests__/unit/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests están en /shared porque prueban la funcionalidad compartida
+ * de la clase base Entity. Al estar en /shared, estos tests se ejecutan una sola vez para
+ * validar la funcionalidad común que usan todas las entidades de la aplicación.
  *
  * FUNCIONALIDAD: Tests unitarios para la clase base Entity que verifican el comportamiento
  * correcto de la generación de ID, asignación de propiedades y serialización JSON.

@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: user.entity.int-spec.ts
+ * UBICACIÓN: /users/domain/entities/__tests__/integration/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests de integración están en /users/domain porque prueban la
+ * integración completa de la entidad User con sus validaciones y dependencias del dominio.
+ * Al estar en /domain, estos tests validan el comportamiento completo de la lógica de negocio
+ * del módulo de usuarios sin salir del dominio.
  *
  * FUNCIONALIDAD: Tests de integración para la entidad UserEntity que verifican el comportamiento
  * completo incluyendo validaciones de dominio, construcción de objetos y métodos de actualización.

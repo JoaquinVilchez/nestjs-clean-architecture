@@ -1,5 +1,10 @@
 /**
  * ARCHIVO: class-validator-fields.spec.ts
+ * UBICACIÓN: /shared/domain/validators/__tests__/unit/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests están en /shared porque prueban la funcionalidad compartida
+ * de ClassValidatorFields que usan TODOS los validadores del dominio. Al estar en /shared,
+ * estos tests se ejecutan una sola vez para validar la lógica común de validación.
  *
  * FUNCIONALIDAD: Tests unitarios para ClassValidatorFields que verifican el comportamiento
  * correcto de la validación, manejo de errores y almacenamiento de datos validados.

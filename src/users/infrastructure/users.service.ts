@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: users.service.ts
+ * UBICACIÓN: /users/infrastructure/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El servicio está en /users/infrastructure porque actúa como
+ * orquestador entre el controlador y la lógica de negocio. En Clean Architecture,
+ * este tipo de servicio pertenece a la capa de infraestructura ya que coordina
+ * entre la interfaz externa y los casos de uso del dominio del módulo de usuarios.
  *
  * FUNCIONALIDAD: Servicio de infraestructura para el módulo de usuarios que contiene
  * la lógica de negocio. Actualmente contiene implementaciones mock que devuelven strings,

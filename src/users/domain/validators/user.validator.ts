@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: user.validator.ts
+ * UBICACIÓN: /users/domain/validators/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El validador está en /users/domain porque contiene las reglas de
+ * validación específicas del módulo de usuarios. Al estar en /domain, es independiente
+ * de frameworks externos y contiene la lógica de validación pura del dominio de usuarios.
+ * Extiende la funcionalidad compartida de /shared pero con reglas específicas de usuarios.
  *
  * FUNCIONALIDAD: Define las reglas de validación para usuarios utilizando decoradores
  * de class-validator. Incluye UserRules para las reglas, UserValidator para la lógica

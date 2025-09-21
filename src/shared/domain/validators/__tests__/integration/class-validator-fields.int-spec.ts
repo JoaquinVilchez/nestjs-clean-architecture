@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: class-validator-fields.int-spec.ts
+ * UBICACIÓN: /shared/domain/validators/__tests__/integration/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests de integración están en /shared porque prueban la
+ * integración compartida entre ClassValidatorFields y class-validator que usan TODOS
+ * los validadores del dominio. Al estar en /shared, estos tests validan la integración
+ * común una sola vez para toda la aplicación.
  *
  * FUNCIONALIDAD: Tests de integración para ClassValidatorFields que verifican el
  * funcionamiento correcto con class-validator real, incluyendo decoradores y validaciones.

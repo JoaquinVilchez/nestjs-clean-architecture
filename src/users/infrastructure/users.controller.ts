@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: users.controller.ts
+ * UBICACIÓN: /users/infrastructure/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El controlador está en /users/infrastructure porque es la capa
+ * que maneja la interfaz externa (HTTP/REST) del módulo de usuarios. En Clean Architecture,
+ * los controladores pertenecen a la capa de infraestructura ya que manejan detalles
+ * de implementación específicos del framework (NestJS) y la comunicación externa.
  *
  * FUNCIONALIDAD: Controlador REST para el módulo de usuarios que maneja todas las
  * peticiones HTTP relacionadas con usuarios. Define los endpoints REST estándar (CRUD)

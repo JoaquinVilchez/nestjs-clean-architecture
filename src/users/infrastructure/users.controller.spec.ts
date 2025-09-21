@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: users.controller.spec.ts
+ * UBICACIÓN: /users/infrastructure/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests del controlador están en /users/infrastructure porque
+ * prueban la funcionalidad específica del controlador del módulo de usuarios. Al estar
+ * en /infrastructure, estos tests validan la configuración de NestJS y la integración
+ * del controlador con el framework, que son responsabilidades de la capa de infraestructura.
  *
  * FUNCIONALIDAD: Tests unitarios para UsersController que verifican que el controlador
  * se instancie correctamente y que la configuración de NestJS esté bien configurada.

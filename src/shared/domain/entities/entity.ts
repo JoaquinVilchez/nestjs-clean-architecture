@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: entity.ts
+ * UBICACIÓN: /shared/domain/entities/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Esta clase base está en /shared/domain porque es una abstracción
+ * fundamental que comparten TODAS las entidades del dominio en cualquier módulo (users, products, etc.).
+ * Al estar en /shared, evita duplicación de código y garantiza consistencia en toda la aplicación.
+ * Es parte del dominio compartido que no pertenece a un módulo específico.
  *
  * FUNCIONALIDAD: Clase base abstracta para todas las entidades del dominio que implementa
  * el patrón Entity de Domain-Driven Design (DDD). Proporciona funcionalidad común como

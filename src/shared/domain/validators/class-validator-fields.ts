@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: class-validator-fields.ts
+ * UBICACIÓN: /shared/domain/validators/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Esta clase abstracta está en /shared/domain porque es la base
+ * para TODOS los validadores del dominio en cualquier módulo. Al estar en /shared,
+ * evita duplicar la lógica de integración con class-validator en cada módulo y
+ * garantiza consistencia en el comportamiento de validación en toda la aplicación.
  *
  * FUNCIONALIDAD: Clase abstracta que implementa la validación usando class-validator.
  * Proporciona una interfaz consistente para validar datos y manejar errores de validación.

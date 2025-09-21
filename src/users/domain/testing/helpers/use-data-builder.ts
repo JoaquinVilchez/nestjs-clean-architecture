@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: use-data-builder.ts
+ * UBICACIÓN: /users/domain/testing/helpers/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El data builder está en /users/domain porque genera datos de prueba
+ * específicos para el módulo de usuarios. Al estar en /domain/testing, es parte del
+ * dominio pero enfocado en testing, proporcionando datos realistas para las pruebas
+ * del módulo de usuarios sin depender de infraestructura externa.
  *
  * FUNCIONALIDAD: Helper para generar datos de prueba consistentes para usuarios
  * utilizando Faker.js. Permite sobrescribir campos específicos cuando se necesitan

@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: users.module.ts
+ * UBICACIÓN: /users/infrastructure/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El módulo está en /users/infrastructure porque es la configuración
+ * específica del módulo de usuarios en NestJS. Los módulos de NestJS pertenecen a la
+ * capa de infraestructura ya que manejan la configuración del framework y la organización
+ * de dependencias específicas del módulo de usuarios.
  *
  * FUNCIONALIDAD: Módulo de usuarios para NestJS que configura y organiza todas las
  * dependencias relacionadas con el módulo de usuarios. Registra el controlador y el

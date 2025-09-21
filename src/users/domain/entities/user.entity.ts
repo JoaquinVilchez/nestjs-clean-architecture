@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: user.entity.ts
+ * UBICACIÓN: /users/domain/entities/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? La entidad User está en /users/domain porque representa la lógica
+ * de negocio específica del módulo de usuarios. Al estar en /domain, es independiente
+ * de frameworks, bases de datos y tecnologías externas, siguiendo Clean Architecture.
+ * La entidad contiene las reglas de negocio puras del dominio de usuarios.
  *
  * FUNCIONALIDAD: Define la entidad de Usuario en la capa de dominio siguiendo Clean Architecture.
  * Esta entidad encapsula toda la lógica de negocio relacionada con usuarios, incluyendo

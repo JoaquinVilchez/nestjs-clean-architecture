@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: create-user.dto.ts
+ * UBICACIÓN: /users/infrastructure/dto/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El DTO está en /users/infrastructure porque es específico del módulo
+ * de usuarios y pertenece a la capa de infraestructura. Los DTOs son objetos de transferencia
+ * de datos que se usan en la interfaz externa (APIs REST) y contienen validaciones específicas
+ * para la entrada de datos del módulo de usuarios.
  *
  * FUNCIONALIDAD: DTO para crear un nuevo usuario que define la estructura de datos
  * requerida en la capa de infraestructura. Se utiliza para validar los datos de entrada

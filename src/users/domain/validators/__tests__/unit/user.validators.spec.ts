@@ -1,5 +1,11 @@
 /**
  * ARCHIVO: user.validators.spec.ts
+ * UBICACIÓN: /users/domain/validators/__tests__/unit/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests unitarios están en /users/domain porque prueban las
+ * reglas de validación específicas del módulo de usuarios. Al estar en /domain, estos
+ * tests validan la lógica de validación pura del dominio de usuarios sin dependencias
+ * externas, siguiendo Clean Architecture.
  *
  * FUNCIONALIDAD: Tests unitarios para UserValidator que verifican el comportamiento
  * correcto de todas las validaciones de campos (name, email, password, createdAt)
