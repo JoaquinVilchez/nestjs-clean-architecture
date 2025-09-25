@@ -36,15 +36,28 @@ export class SearchParams {
   protected _sortDir: SortDirection | null
   protected _filter: string | null
 
-  constructor(props: SearchProps) {
-    this._page = props.page ?? 1
-    this._perPage = props.perPage ?? 15
-    this._sort = props.sort ?? null
-    this._sortDir = props.sortDir ?? null
-    this._filter = props.filter ?? null
+  constructor(props: SearchProps = {}) {
+    // Inicializar valores por defecto primero
+    this._page = 1
+    this._perPage = 15
+    this._sort = null
+    this._sortDir = null
+    this._filter = null
+
+    // Luego aplicar los valores del props
+    this.page = props.page ?? 1
+    this.perPage = props.perPage ?? 15
+    this.sort = props.sort ?? null
+    this.sortDir = props.sortDir ?? null
+    this.filter = props.filter ?? null
   }
 
   private set page(value: number) {
+    // Si el valor es boolean, tratarlo como inválido
+    if (typeof value === 'boolean') {
+      return
+    }
+
     let _page = +value
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     if (Number.isNaN(_page) || _page <= 0 || parseInt(_page as any) != _page) {
@@ -58,6 +71,10 @@ export class SearchParams {
   }
 
   private set perPage(value: number) {
+    if (typeof value === 'boolean') {
+      return
+    }
+
     let _perPage = +value
     if (
       Number.isNaN(_perPage) ||
