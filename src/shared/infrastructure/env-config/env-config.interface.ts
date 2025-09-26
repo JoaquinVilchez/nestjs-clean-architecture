@@ -1,17 +1,19 @@
 /**
- * Interfaz que define el contrato para el servicio de configuración
+ * ARCHIVO: env-config.interface.ts
+ * UBICACIÓN: /shared/infrastructure/env-config/
  *
- * Esta interfaz implementa el patrón de inversión de dependencias (DIP):
- * - Define QUÉ debe hacer el servicio, no CÓMO lo hace
- * - Permite cambiar la implementación sin afectar el código que la usa
- * - Facilita el testing al poder crear implementaciones mock
- * - Sigue el principio de segregación de interfaces (ISP)
+ * ¿POR QUÉ ESTÁ AQUÍ? La interfaz de configuración está en /shared/infrastructure porque
+ * define el contrato para funcionalidad de infraestructura compartida que puede ser
+ * utilizada por CUALQUIER módulo de la aplicación. Al estar en /shared, evita duplicar
+ * esta interfaz en cada módulo y garantiza consistencia en el acceso a configuración.
  *
- * ¿Por qué usar interfaces?
- * - Abstracción: El código cliente no depende de la implementación concreta
- * - Testing: Puedes crear mocks que implementen esta interfaz
- * - Flexibilidad: Puedes cambiar la implementación sin romper el código
- * - Documentación: Sirve como documentación de la API del servicio
+ * FUNCIONALIDAD: Interfaz que define el contrato para el servicio de configuración,
+ * implementando el patrón de inversión de dependencias (DIP) y proporcionando una
+ * abstracción clara para el acceso a variables de entorno.
+ *
+ * BENEFICIO: Proporciona abstracción sobre la implementación concreta, facilita el
+ * testing con mocks, permite cambiar implementaciones sin romper el código y sirve
+ * como documentación de la API del servicio de configuración.
  */
 export interface EnvConfig {
   /**

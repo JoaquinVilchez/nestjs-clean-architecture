@@ -1,17 +1,25 @@
+/**
+ * ARCHIVO: env-config.service.ts
+ * UBICACIÓN: /shared/infrastructure/env-config/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El servicio de configuración está en /shared/infrastructure porque es
+ * funcionalidad de infraestructura compartida que puede ser utilizada por CUALQUIER módulo
+ * de la aplicación. Al estar en /shared, evita duplicar la lógica de configuración en cada
+ * módulo y proporciona acceso centralizado a las variables de entorno en toda la app.
+ *
+ * FUNCIONALIDAD: Servicio de configuración personalizado que implementa la interfaz EnvConfig
+ * y actúa como una capa de abstracción sobre ConfigService de NestJS, centralizando el
+ * acceso a las variables de entorno de la aplicación.
+ *
+ * BENEFICIO: Centraliza la lógica de configuración, facilita el testing con mocks,
+ * implementa inyección de dependencias y proporciona una interfaz consistente para
+ * acceder a las variables de entorno en toda la aplicación.
+ */
+
 // Importaciones necesarias para crear un servicio inyectable
 import { Injectable } from '@nestjs/common'
 import { EnvConfig } from './env-config.interface'
 import { ConfigService } from '@nestjs/config'
-
-/**
- * Servicio de configuración personalizado que implementa la interfaz EnvConfig
- *
- * Este servicio actúa como una capa de abstracción sobre ConfigService de NestJS:
- * - Proporciona métodos específicos para obtener configuraciones de la aplicación
- * - Implementa el patrón de inyección de dependencias
- * - Centraliza la lógica de configuración en un solo lugar
- * - Facilita el testing al poder mockear fácilmente
- */
 @Injectable()
 export class EnvConfigService implements EnvConfig {
   /**

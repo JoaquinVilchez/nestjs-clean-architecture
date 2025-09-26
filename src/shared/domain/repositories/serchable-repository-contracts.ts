@@ -187,6 +187,8 @@ export interface SearchableRepositoryInterface<
   SearchInput = SearchParams,
   SearchOutput = SearchResult<E, Filter>,
 > extends RepositoryInterface<E> {
+  // Lista de campos por los que se puede ordenar en las búsquedas
+  sortableFields: string[]
   // Método de búsqueda que recibe input genérico y devuelve output genérico
   search(input: SearchInput): Promise<SearchOutput>
 }

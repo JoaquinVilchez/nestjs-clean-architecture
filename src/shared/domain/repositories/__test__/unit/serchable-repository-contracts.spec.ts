@@ -1,3 +1,20 @@
+/**
+ * ARCHIVO: serchable-repository-contracts.spec.ts
+ * UBICACIÓN: /shared/domain/repositories/__test__/unit/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests están en /shared porque prueban la funcionalidad compartida
+ * de SearchParams y SearchResult que usan TODOS los repositorios con búsqueda del dominio.
+ * Al estar en /shared, estos tests se ejecutan una sola vez para validar la lógica común
+ * de búsqueda, paginación y ordenamiento en toda la aplicación.
+ *
+ * FUNCIONALIDAD: Tests unitarios para SearchParams y SearchResult que verifican el
+ * comportamiento correcto de validación de parámetros, cálculo de paginación y
+ * serialización de resultados de búsqueda.
+ *
+ * BENEFICIO: Garantiza que la funcionalidad de búsqueda compartida funcione correctamente
+ * y que se manejen apropiadamente todos los casos edge de validación de parámetros.
+ */
+
 import {
   SearchParams,
   SearchResult,
@@ -9,6 +26,7 @@ type TestPageValue = null | undefined | string | number | boolean | object
 
 describe('Serchable Repository unit tests', () => {
   describe('SearchParams tests', () => {
+    // Prueba validación de página: debe ser entero positivo, por defecto 1
     it('page prop should be a number and default value should be 1', () => {
       const sut = new SearchParams()
       expect(sut.page).toBe(1)
@@ -35,6 +53,7 @@ describe('Serchable Repository unit tests', () => {
       })
     })
 
+    // Prueba validación de elementos por página: debe ser entero positivo, por defecto 15
     it('perPage prop should be a number and default value should be 15', () => {
       const sut = new SearchParams()
       expect(sut.perPage).toBe(15)
@@ -88,6 +107,7 @@ describe('Serchable Repository unit tests', () => {
       })
     })
 
+    // Prueba validación de dirección de ordenamiento: asc/desc/null, por defecto null
     it('sortDir prop should be asc, desc or null and default value should be null', () => {
       const sut = new SearchParams()
       expect(sut.sortDir).toBeNull()
@@ -232,6 +252,7 @@ describe('Serchable Repository unit tests', () => {
       })
     })
 
+    // Prueba cálculo correcto de última página en diferentes escenarios de paginación
     it('should calculate lastPage correctly for different scenarios', () => {
       // Caso 1: total menor que perPage
       let sut = new SearchResult<any, string>({

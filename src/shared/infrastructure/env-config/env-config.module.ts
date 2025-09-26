@@ -1,17 +1,25 @@
+/**
+ * ARCHIVO: env-config.module.ts
+ * UBICACIÓN: /shared/infrastructure/env-config/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? El módulo de configuración está en /shared/infrastructure porque es
+ * funcionalidad de infraestructura compartida que puede ser utilizada por CUALQUIER módulo
+ * de la aplicación. Al estar en /shared, evita duplicar la configuración de variables
+ * de entorno en cada módulo y proporciona una configuración centralizada para toda la app.
+ *
+ * FUNCIONALIDAD: Módulo de configuración personalizado que extiende la funcionalidad de
+ * @nestjs/config e implementa el patrón de módulo dinámico para configurar variables
+ * de entorno de manera flexible y centralizada.
+ *
+ * BENEFICIO: Centraliza la configuración de variables de entorno, permite configuración
+ * dinámica en tiempo de ejecución y facilita el manejo de diferentes entornos (dev, prod, test).
+ */
+
 // Importaciones necesarias para crear un módulo dinámico de configuración
 import { DynamicModule, Module } from '@nestjs/common'
 import { ConfigModule, ConfigModuleOptions } from '@nestjs/config'
 import { EnvConfigService } from './env-config.service'
 import { join } from 'node:path'
-
-/**
- * Módulo de configuración personalizado que extiende la funcionalidad de @nestjs/config
- *
- * Este módulo implementa el patrón de módulo dinámico de NestJS, lo que permite:
- * - Configurar el módulo en tiempo de ejecución
- * - Personalizar la carga de variables de entorno
- * - Proporcionar un servicio de configuración específico para la aplicación
- */
 @Module({
   // Proveedores que estarán disponibles en este módulo
   providers: [EnvConfigService],

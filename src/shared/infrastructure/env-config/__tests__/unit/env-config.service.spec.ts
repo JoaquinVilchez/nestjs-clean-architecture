@@ -1,42 +1,50 @@
+/**
+ * ARCHIVO: env-config.service.spec.ts
+ * UBICACIÓN: /shared/infrastructure/env-config/__tests__/unit/
+ *
+ * ¿POR QUÉ ESTÁ AQUÍ? Los tests del servicio de configuración están en /shared/infrastructure
+ * porque prueban la funcionalidad específica del servicio de configuración compartido.
+ * Al estar en /shared, estos tests validan la funcionalidad común de configuración
+ * que usan TODOS los módulos de la aplicación.
+ *
+ * FUNCIONALIDAD: Tests unitarios para EnvConfigService que verifican el comportamiento
+ * correcto de la lectura de variables de entorno y la configuración del servicio.
+ *
+ * BENEFICIO: Garantiza que las variables de entorno se lean correctamente y estén
+ * disponibles en la aplicación, proporcionando confianza en la configuración compartida.
+ */
+
 import { Test, TestingModule } from '@nestjs/testing'
 import { EnvConfigService } from '../../env-config.service'
 import { EnvConfigModule } from '../../env-config.module'
 
-// Test unitario de EnvConfigService: verifica que el servicio de configuración funcione correctamente
-// Beneficio: garantiza que las variables de entorno se lean correctamente y estén disponibles en la aplicación
 describe('EnvConfigService unit test', () => {
   let sut: EnvConfigService
 
-  // Antes de cada test, configuramos el módulo de testing de NestJS
+  // Configuración del módulo de testing de NestJS antes de cada test
   beforeEach(async () => {
-    // 1. Crear un módulo de testing importando el módulo de configuración
+    // Crear un módulo de testing importando el módulo de configuración completo
     const module: TestingModule = await Test.createTestingModule({
-      // Importamos el módulo completo en lugar de solo el servicio
-      // porque EnvConfigModule.forRoot() ya incluye el servicio y su configuración
+      // Importamos el módulo completo porque EnvConfigModule.forRoot() incluye el servicio y su configuración
       imports: [EnvConfigModule.forRoot()],
-    }).compile() // Compilar el módulo para crear las instancias
+    }).compile()
 
-    // 2. Obtener la instancia del servicio desde el módulo compilado
+    // Obtener la instancia del servicio desde el módulo compilado
     sut = module.get<EnvConfigService>(EnvConfigService)
   })
 
-  // Test 1: Verifica que el servicio se haya creado correctamente
+  // Prueba que el servicio se instancie correctamente
   it('should be defined', () => {
-    // Verificar que el servicio esté definido (no sea undefined)
     expect(sut).toBeDefined()
   })
 
-  // Test 2: Verifica que el método getAppPort() retorne el puerto correcto
+  // Prueba que el método getAppPort() retorne el puerto correcto
   it('should return the variable port', () => {
-    // 1. Llamar al método getAppPort() del servicio
-    // 2. Verificar que retorne el puerto esperado (3000 por defecto en testing)
     expect(sut.getAppPort()).toBe(3000)
   })
 
-  // Test 3: Verifica que el método getNodeEnv() retorne el entorno correcto
+  // Prueba que el método getNodeEnv() retorne el entorno correcto
   it('should return the variable nodeEnv', () => {
-    // 1. Llamar al método getNodeEnv() del servicio
-    // 2. Verificar que retorne el entorno esperado ('test' en testing)
     expect(sut.getNodeEnv()).toBe('test')
   })
 })
