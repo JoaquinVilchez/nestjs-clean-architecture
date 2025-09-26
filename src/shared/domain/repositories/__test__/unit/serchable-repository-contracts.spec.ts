@@ -1,5 +1,6 @@
 import {
   SearchParams,
+  SearchResult,
   SortDirection,
 } from '../../serchable-repository-contracts'
 
@@ -181,6 +182,108 @@ describe('Serchable Repository unit tests', () => {
           new SearchParams({ filter: item.filter as string | null }).filter,
         ).toEqual(item.expected)
       })
+    })
+  })
+
+  describe('SearchResult tests', () => {
+    it('should create SearchResult with null filter', () => {
+      const sut = new SearchResult<any, string>({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 4,
+        currentPage: 1,
+        perPage: 2,
+        sort: null,
+        sortDir: null,
+        filter: null,
+      })
+
+      expect(sut.toJSON()).toStrictEqual({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 4,
+        currentPage: 1,
+        perPage: 2,
+        lastPage: 2,
+        sort: null,
+        sortDir: null,
+        filter: null,
+      })
+    })
+
+    it('should create SearchResult with string filter', () => {
+      const sut = new SearchResult<any, string>({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 4,
+        currentPage: 1,
+        perPage: 2,
+        sort: 'name',
+        sortDir: 'asc' as SortDirection,
+        filter: 'test',
+      })
+
+      expect(sut.toJSON()).toStrictEqual({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 4,
+        currentPage: 1,
+        perPage: 2,
+        lastPage: 2,
+        sort: 'name',
+        sortDir: 'asc' as SortDirection,
+        filter: 'test',
+      })
+    })
+
+    it('should calculate lastPage correctly for different scenarios', () => {
+      // Caso 1: total menor que perPage
+      let sut = new SearchResult<any, string>({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 4,
+        currentPage: 1,
+        perPage: 10,
+        sort: 'name',
+        sortDir: 'asc' as SortDirection,
+        filter: 'test',
+      })
+
+      expect(sut.lastPage).toBe(1)
+
+      // Caso 2: total mayor que perPage
+      sut = new SearchResult<any, string>({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 54,
+        currentPage: 1,
+        perPage: 10,
+        sort: 'name',
+        sortDir: 'asc' as SortDirection,
+        filter: 'test',
+      })
+
+      expect(sut.lastPage).toBe(6)
+
+      // Caso 3: total exactamente divisible por perPage
+      sut = new SearchResult<any, string>({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 50,
+        currentPage: 1,
+        perPage: 10,
+        sort: 'name',
+        sortDir: 'asc' as SortDirection,
+        filter: 'test',
+      })
+
+      expect(sut.lastPage).toBe(5)
+
+      // Caso 4: total con resto
+      sut = new SearchResult<any, string>({
+        items: ['item1', 'item2', 'item3', 'item4'],
+        total: 53,
+        currentPage: 1,
+        perPage: 10,
+        sort: 'name',
+        sortDir: 'asc' as SortDirection,
+        filter: 'test',
+      })
+
+      expect(sut.lastPage).toBe(6)
     })
   })
 })

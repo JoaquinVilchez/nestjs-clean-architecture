@@ -19,8 +19,10 @@
 import { Entity } from '../entities/entity'
 import { RepositoryInterface } from './repository-contracts'
 
+// Tipo para dirección de ordenamiento en búsquedas
 export type SortDirection = 'asc' | 'desc'
 
+// Tipo para propiedades de entrada de búsqueda con paginación y filtros
 export type SearchProps<Filter = string> = {
   page?: number
   perPage?: number
@@ -29,17 +31,18 @@ export type SearchProps<Filter = string> = {
   filter?: Filter | null
 }
 
+// Tipo para propiedades del resultado de búsqueda con metadatos de paginación
 export type SearchResultProps<E extends Entity, Filter> = {
   items: E[]
   total: number
   currentPage: number
   perPage: number
-  lastPage: number
   sort: string | null
   sortDir: SortDirection | null
   filter: Filter | null
 }
 
+// Clase para manejar parámetros de búsqueda con validación y valores por defecto
 export class SearchParams {
   protected _page: number
   protected _perPage: number
@@ -55,7 +58,7 @@ export class SearchParams {
     this._sortDir = null
     this._filter = null
 
-    // Luego aplicar los valores del props
+    // Luego aplicar los valores del props usando setters con validación
     this.page = props.page ?? 1
     this.perPage = props.perPage ?? 15
     this.sort = props.sort ?? null
@@ -63,6 +66,7 @@ export class SearchParams {
     this.filter = props.filter ?? null
   }
 
+  // Valida y establece el número de página (debe ser entero positivo)
   private set page(value: number) {
     // Si el valor es boolean, tratarlo como inválido
     if (typeof value === 'boolean') {
@@ -81,6 +85,7 @@ export class SearchParams {
     return this._page
   }
 
+  // Valida y establece el número de elementos por página (debe ser entero positivo)
   private set perPage(value: number) {
     if (typeof value === 'boolean') {
       return
@@ -102,6 +107,7 @@ export class SearchParams {
     return this._perPage
   }
 
+  // Establece el campo de ordenamiento (convierte a string o null)
   private set sort(value: string | null) {
     this._sort =
       value === null || value === undefined || value === '' ? null : `${value}`
@@ -111,6 +117,7 @@ export class SearchParams {
     return this._sort
   }
 
+  // Establece la dirección de ordenamiento (asc/desc, por defecto asc)
   private set sortDir(value: string | null) {
     if (!this.sort) {
       this._sortDir = null
@@ -125,6 +132,7 @@ export class SearchParams {
     return this._sortDir
   }
 
+  // Establece el filtro de búsqueda (convierte a string o null)
   private set filter(value: string | null) {
     this._filter =
       value === null || value === undefined || value === '' ? null : `${value}`
@@ -135,6 +143,7 @@ export class SearchParams {
   }
 }
 
+// Clase para representar el resultado de una búsqueda con metadatos de paginación
 export class SearchResult<E extends Entity, Filter = string> {
   readonly items: E[]
   readonly total: number
@@ -150,12 +159,14 @@ export class SearchResult<E extends Entity, Filter = string> {
     this.total = props.total
     this.currentPage = props.currentPage
     this.perPage = props.perPage
+    // Calcula la última página basada en el total y elementos por página
     this.lastPage = Math.ceil(this.total / this.perPage)
     this.sort = props.sort ?? null
     this.sortDir = props.sortDir ?? null
     this.filter = props.filter ?? null
   }
 
+  // Convierte el resultado a JSON, opcionalmente serializando las entidades
   toJSON(forceEntity = false) {
     return {
       items: forceEntity ? this.items.map(item => item.toJSON()) : this.items,
@@ -172,8 +183,9 @@ export class SearchResult<E extends Entity, Filter = string> {
 
 export interface SearchableRepositoryInterface<
   E extends Entity,
-  SearchInput,
-  SearchOutput,
+  Filter = string,
+  SearchInput = SearchParams,
+  SearchOutput = SearchResult<E, Filter>,
 > extends RepositoryInterface<E> {
   // Método de búsqueda que recibe input genérico y devuelve output genérico
   search(input: SearchInput): Promise<SearchOutput>
