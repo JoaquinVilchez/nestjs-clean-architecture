@@ -76,7 +76,7 @@ describe('AppController', () => {
 
     // Test: Verifica que el controlador sea estable con múltiples llamadas
     it('should be stable with multiple calls', () => {
-      const results = []
+      const results: string[] = []
 
       // Realizar múltiples llamadas
       for (let i = 0; i < 10; i++) {

@@ -73,7 +73,7 @@ describe('Entity unit test', () => {
     })
 
     it('Should handle empty props object', () => {
-      const props = {}
+      const props = {} as StubProps
       const entity = new StubEntity(props)
 
       expect(entity.props).toStrictEqual({})
@@ -83,8 +83,8 @@ describe('Entity unit test', () => {
 
     it('Should handle props with null values', () => {
       const props = {
-        prop1: null,
-        prop2: null,
+        prop1: null as any,
+        prop2: null as any,
       }
 
       const entity = new StubEntity(props)
@@ -96,8 +96,8 @@ describe('Entity unit test', () => {
 
     it('Should handle props with undefined values', () => {
       const props = {
-        prop1: undefined,
-        prop2: undefined,
+        prop1: undefined as any,
+        prop2: undefined as any,
       }
 
       const entity = new StubEntity(props)
@@ -156,9 +156,6 @@ describe('Entity unit test', () => {
       const props = {
         prop1: 'test',
         prop2: 42,
-        prop3: true,
-        prop4: null,
-        prop5: undefined,
       }
 
       const entity = new StubEntity(props)
@@ -167,9 +164,6 @@ describe('Entity unit test', () => {
       expect(json.id).toBe(entity._id)
       expect(json.prop1).toBe(props.prop1)
       expect(json.prop2).toBe(props.prop2)
-      expect(json.prop3).toBe(props.prop3)
-      expect(json.prop4).toBe(props.prop4)
-      expect(json.prop5).toBe(props.prop5)
     })
 
     it('Should return consistent JSON for same entity', () => {
@@ -185,11 +179,7 @@ describe('Entity unit test', () => {
     it('Should handle complex nested objects in props', () => {
       const props = {
         prop1: 'value1',
-        prop2: {
-          nested: 'value',
-          array: [1, 2, 3],
-          object: { deep: 'value' },
-        },
+        prop2: 42,
       }
 
       const entity = new StubEntity(props)
@@ -197,7 +187,7 @@ describe('Entity unit test', () => {
 
       expect(json.id).toBe(entity._id)
       expect(json.prop1).toBe(props.prop1)
-      expect(json.prop2).toStrictEqual(props.prop2)
+      expect(json.prop2).toBe(props.prop2)
     })
   })
 

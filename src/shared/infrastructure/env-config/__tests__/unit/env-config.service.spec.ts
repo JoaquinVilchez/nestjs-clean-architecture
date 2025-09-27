@@ -103,8 +103,8 @@ describe('EnvConfigService unit test', () => {
 
   describe('Service Stability', () => {
     it('should handle multiple calls consistently', () => {
-      const ports = []
-      const nodeEnvs = []
+      const ports: number[] = []
+      const nodeEnvs: string[] = []
 
       // Realizar múltiples llamadas
       for (let i = 0; i < 10; i++) {

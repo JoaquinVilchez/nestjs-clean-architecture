@@ -17,10 +17,25 @@
  */
 
 import { UserEntity } from '../entities/user.entity'
-import { SearchableRepositoryInterface } from '@/shared/domain/repositories/serchable-repository-contracts'
+import {
+  SearchableRepositoryInterface,
+  SearchParams as DefaultSearchParams,
+  SearchResult as DefaultSearchResult,
+} from '@/shared/domain/repositories/serchable-repository-contracts'
 
+export type UserFilter = string
+export class UserSearchParams extends DefaultSearchParams<UserFilter> {}
+export class UserSearchResult extends DefaultSearchResult<
+  UserEntity,
+  UserFilter
+> {}
 export interface UserRepository
-  extends SearchableRepositoryInterface<UserEntity, any, any> {
+  extends SearchableRepositoryInterface<
+    UserEntity,
+    UserFilter,
+    UserSearchParams,
+    UserSearchResult
+  > {
   // Busca un usuario por su email
   findByEmail(email: string): Promise<UserEntity>
   // Verifica si existe un usuario con el email especificado

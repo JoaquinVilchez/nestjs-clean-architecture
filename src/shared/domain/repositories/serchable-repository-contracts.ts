@@ -43,14 +43,14 @@ export type SearchResultProps<E extends Entity, Filter> = {
 }
 
 // Clase para manejar parámetros de búsqueda con validación y valores por defecto
-export class SearchParams {
+export class SearchParams<Filter = string> {
   protected _page: number
   protected _perPage: number
   protected _sort: string | null
   protected _sortDir: SortDirection | null
-  protected _filter: string | null
+  protected _filter: Filter | null
 
-  constructor(props: SearchProps = {}) {
+  constructor(props: SearchProps<Filter> = {}) {
     // Inicializar valores por defecto primero
     this._page = 1
     this._perPage = 15
@@ -133,12 +133,14 @@ export class SearchParams {
   }
 
   // Establece el filtro de búsqueda (convierte a string o null)
-  private set filter(value: string | null) {
+  private set filter(value: Filter | null) {
     this._filter =
-      value === null || value === undefined || value === '' ? null : `${value}`
+      value === null || value === undefined || value === ''
+        ? null
+        : (String(value) as Filter)
   }
 
-  get filter(): string | null {
+  get filter(): Filter | null {
     return this._filter
   }
 }
@@ -184,7 +186,7 @@ export class SearchResult<E extends Entity, Filter = string> {
 export interface SearchableRepositoryInterface<
   E extends Entity,
   Filter = string,
-  SearchInput = SearchParams,
+  SearchInput = SearchParams<Filter>,
   SearchOutput = SearchResult<E, Filter>,
 > extends RepositoryInterface<E> {
   // Lista de campos por los que se puede ordenar en las búsquedas

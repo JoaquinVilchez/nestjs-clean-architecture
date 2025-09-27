@@ -16,16 +16,56 @@
 
 import { NotFoundError } from '@/shared/domain/errors/not-found-error'
 import { InMemorySerchableRepository } from '@/shared/domain/repositories/in-memory-serchable.repository'
+import { SortDirection } from '@/shared/domain/repositories/serchable-repository-contracts'
 import { UserEntity } from '@/users/domain/entities/user.entity'
-import { UserRepository } from '@/users/domain/respositories/user.repository'
+import {
+  UserFilter,
+  UserRepository,
+} from '@/users/domain/respositories/user.repository'
 
 export class InMemoryUserRepository
   extends InMemorySerchableRepository<UserEntity>
   implements UserRepository
 {
+  // Define los campos ordenables para las búsquedas de usuarios
+  sortableFields: string[] = ['name', 'email', 'createdAt']
+
+  // Implementación del filtrado para usuarios (filtra por nombre y email)
+  protected async applyFilter(
+    items: UserEntity[],
+    filter: UserFilter,
+  ): Promise<UserEntity[]> {
+    if (!filter) {
+      return Promise.resolve(items)
+    }
+    const filterLower = filter.toLowerCase()
+    return items.filter(item => {
+      return (
+        item.props.name.toLowerCase().includes(filterLower) ||
+        item.props.email.toLowerCase().includes(filterLower)
+      )
+    })
+  }
+
+  // Implementación del ordenamiento para usuarios (por defecto ordena por createdAt desc)
+  protected applySort(
+    items: UserEntity[],
+    sort: string | null,
+    sortDir: SortDirection | null,
+  ): UserEntity[] {
+    return !sort
+      ? super.applySort(items, 'createdAt', 'desc')
+      : super.applySort(items, sort, sortDir)
+  }
+
   // Busca un usuario por email en la colección en memoria
   findByEmail(email: string): Promise<UserEntity> {
-    const entity = this.items.find(item => item.email === email)
+    // Validación básica de entrada
+    if (!email || typeof email !== 'string') {
+      throw new NotFoundError('Invalid email provided')
+    }
+
+    const entity = this.items.find(item => item.props.email === email)
     if (!entity) {
       throw new NotFoundError(`User not found with email ${email}`)
     }
@@ -34,7 +74,13 @@ export class InMemoryUserRepository
 
   // Verifica si existe un usuario con el email especificado
   emailExists(email: string): Promise<boolean> {
-    const entity = this.items.find(item => item.email === email)
-    return Promise.resolve(!!entity)
+    // Validación básica de entrada
+    if (!email || typeof email !== 'string') {
+      return Promise.resolve(false)
+    }
+
+    // Usa some() en lugar de find() para mejor rendimiento (se detiene en el primer match)
+    const exists = this.items.some(item => item.props.email === email)
+    return Promise.resolve(exists)
   }
 }
