@@ -15,6 +15,7 @@
  */
 
 import { NotFoundError } from '@/shared/domain/errors/not-found-error'
+import { ConflictError } from '@/shared/domain/errors/conflict-error'
 import { InMemorySerchableRepository } from '@/shared/domain/repositories/in-memory-serchable.repository'
 import { SortDirection } from '@/shared/domain/repositories/serchable-repository-contracts'
 import { UserEntity } from '@/users/domain/entities/user.entity'
@@ -23,7 +24,7 @@ import {
   UserRepository,
 } from '@/users/domain/respositories/user.repository'
 
-export class InMemoryUserRepository
+export class UserInMemoryRepository
   extends InMemorySerchableRepository<UserEntity>
   implements UserRepository
 {
@@ -59,7 +60,7 @@ export class InMemoryUserRepository
   }
 
   // Busca un usuario por email en la colección en memoria
-  findByEmail(email: string): Promise<UserEntity> {
+  async findByEmail(email: string): Promise<UserEntity> {
     // Validación básica de entrada
     if (!email || typeof email !== 'string') {
       throw new NotFoundError('Invalid email provided')
@@ -69,18 +70,20 @@ export class InMemoryUserRepository
     if (!entity) {
       throw new NotFoundError(`User not found with email ${email}`)
     }
-    return Promise.resolve(entity)
+    return entity
   }
 
   // Verifica si existe un usuario con el email especificado
-  emailExists(email: string): Promise<boolean> {
+  async emailExists(email: string): Promise<void> {
     // Validación básica de entrada
     if (!email || typeof email !== 'string') {
-      return Promise.resolve(false)
+      return
     }
 
-    // Usa some() en lugar de find() para mejor rendimiento (se detiene en el primer match)
+    // Si el email ya existe, lanza error de conflicto
     const exists = this.items.some(item => item.props.email === email)
-    return Promise.resolve(exists)
+    if (exists) {
+      throw new ConflictError('Email address already used')
+    }
   }
 }

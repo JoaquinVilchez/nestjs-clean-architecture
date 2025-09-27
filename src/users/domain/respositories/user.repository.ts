@@ -38,6 +38,6 @@ export interface UserRepository
   > {
   // Busca un usuario por su email
   findByEmail(email: string): Promise<UserEntity>
-  // Verifica si existe un usuario con el email especificado
-  emailExists(email: string): Promise<boolean>
+  // Verifica si existe un usuario con el email especificado (lanza error si existe)
+  emailExists(email: string): Promise<void>
 }
